@@ -3,6 +3,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useChat } from '@ai-sdk/react';
 import { Send, Bot, User, Loader2, Sparkles } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeHighlight from 'rehype-highlight';
 import { agents } from '@/lib/agents';
 import styles from './ChatInterface.module.scss';
 
@@ -46,7 +49,7 @@ export default function ChatInterface() {
     });
   };
 
-  const selectedAgentData = agents.find(agent => agent.id === selectedAgent);
+  const selectedAgentData = agents[0];
 
   const getAgentColorClass = (agentId: string) => {
     const colorMap = {
@@ -149,11 +152,46 @@ export default function ChatInterface() {
               {/* Message Content */}
               <div className={`${styles.messageContent} ${message.role === 'user' ? styles.user : ''}`}>
                 <div className={`${styles.messageBubble} ${message.role === 'user' ? styles.user : styles.assistant}`}>
-                  <p className={styles.messageText}>
+                  <div className={styles.messageText}>
                     {message.parts.map((part, partIndex) => (
-                      <span key={partIndex}>{part.type === 'text' ? part.text : ''}</span>
+                      part.type === 'text' ? (
+                        <ReactMarkdown
+                          key={partIndex}
+                          remarkPlugins={[remarkGfm]}
+                          rehypePlugins={[rehypeHighlight]}
+                          components={{
+                            code: (props: React.ComponentProps<'code'> & { inline?: boolean }) => {
+                              const { inline, className, children, ...rest } = props;
+                              const match = /language-(\w+)/.exec(className || '');
+                              return !inline && match ? (
+                                <pre className={`${styles.codeBlock} ${className}`}>
+                                  <code className={className} {...rest}>
+                                    {children}
+                                  </code>
+                                </pre>
+                              ) : (
+                                <code className={styles.inlineCode} {...rest}>
+                                  {children}
+                                </code>
+                              );
+                            },
+                            p: ({children}) => <p className={styles.markdownParagraph}>{children}</p>,
+                            ul: ({children}) => <ul className={styles.markdownList}>{children}</ul>,
+                            ol: ({children}) => <ol className={styles.markdownOrderedList}>{children}</ol>,
+                            li: ({children}) => <li className={styles.markdownListItem}>{children}</li>,
+                            h1: ({children}) => <h1 className={styles.markdownH1}>{children}</h1>,
+                            h2: ({children}) => <h2 className={styles.markdownH2}>{children}</h2>,
+                            h3: ({children}) => <h3 className={styles.markdownH3}>{children}</h3>,
+                            blockquote: ({children}) => <blockquote className={styles.markdownBlockquote}>{children}</blockquote>,
+                            strong: ({children}) => <strong className={styles.markdownStrong}>{children}</strong>,
+                            em: ({children}) => <em className={styles.markdownEm}>{children}</em>,
+                          }}
+                        >
+                          {part.text}
+                        </ReactMarkdown>
+                      ) : null
                     ))}
-                  </p>
+                  </div>
                 </div>
                 <p className={`${styles.messageTime} ${message.role === 'user' ? styles.user : ''}`}>
                   {formatTime(new Date())}

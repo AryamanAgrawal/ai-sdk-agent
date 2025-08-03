@@ -272,7 +272,83 @@ $shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
           .messageText {
             font-size: 0.875rem;
             line-height: 1.5;
-            white-space: pre-wrap;
+            
+            // Markdown element styles
+            .markdownParagraph {
+              margin: 0 0 0.75rem 0;
+              
+              &:last-child {
+                margin-bottom: 0;
+              }
+            }
+            
+            .markdownH1, .markdownH2, .markdownH3 {
+              margin: 1rem 0 0.5rem 0;
+              font-weight: 600;
+              color: $gray-900;
+              
+              &:first-child {
+                margin-top: 0;
+              }
+            }
+            
+            .markdownH1 { font-size: 1.125rem; }
+            .markdownH2 { font-size: 1rem; }
+            .markdownH3 { font-size: 0.875rem; }
+            
+            .markdownList, .markdownOrderedList {
+              margin: 0.5rem 0;
+              padding-left: 1.5rem;
+              
+              .markdownListItem {
+                margin: 0.25rem 0;
+              }
+            }
+            
+            .markdownBlockquote {
+              margin: 0.75rem 0;
+              padding-left: 1rem;
+              border-left: 3px solid $gray-300;
+              color: $gray-600;
+              font-style: italic;
+            }
+            
+            .markdownStrong {
+              font-weight: 600;
+            }
+            
+            .markdownEm {
+              font-style: italic;
+            }
+            
+            .inlineCode {
+              background-color: $gray-100;
+              padding: 0.125rem 0.25rem;
+              border-radius: 0.25rem;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.8125rem;
+              color: $gray-800;
+            }
+            
+            .codeBlock {
+              background-color: $gray-900;
+              color: $gray-100;
+              border-radius: $border-radius-sm;
+              padding: 1rem;
+              margin: 0.75rem 0;
+              overflow-x: auto;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.8125rem;
+              line-height: 1.4;
+              
+              code {
+                background: none;
+                padding: 0;
+                border-radius: 0;
+                color: inherit;
+                font-size: inherit;
+              }
+            }
           }
         }
         
