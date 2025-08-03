@@ -1,24 +1,18 @@
 import { openai } from '@ai-sdk/openai';
-import { streamText } from 'ai';
+import { convertToModelMessages, streamText, UIMessage } from 'ai';
 import { agents } from '@/lib/agents';
 
 export async function POST(req: Request) {
   try {
-    const { messages, agentId } = await req.json();
-    
-    // Find the selected agent
-    const agent = agents.find(a => a.id === agentId) || agents[0];
-    
-    // Create the conversation with the agent's system prompt
-    const result = await streamText({
+    const { messages }: { messages: UIMessage[] } = await req.json();
+        
+    const result = streamText({
       model: openai('gpt-4o'),
-      messages: [
-        { role: 'system', content: agent.systemPrompt },
-        ...messages
-      ],
-    });
+      messages: convertToModelMessages(messages),
+    });    
 
-    return result.toTextStreamResponse();
+    return result.toUIMessageStreamResponse();
+    
   } catch (error) {
     console.error('Chat API error:', error);
     return new Response(
