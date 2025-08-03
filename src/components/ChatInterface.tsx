@@ -16,7 +16,7 @@ export default function ChatInterface() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { messages, sendMessage, status } = useChat();
-  console.log('🔄 [ChatInterface] Messages:', messages);
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
