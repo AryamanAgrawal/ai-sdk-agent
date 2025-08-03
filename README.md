@@ -1,187 +1,100 @@
-# Multi-Agent AI Chat with Next.js and AI SDK
+# AI Multi-Agent Chat
 
-A modern multi-agent chat interface built with Next.js and Vercel's AI SDK, featuring specialized AI agents for different tasks.
+A modern, beautiful chat interface for interacting with specialized AI agents built with Next.js 15, TypeScript, and SCSS modules.
 
 ## Features
 
-- **Multi-Agent System**: Choose from different specialized AI agents
-- **Real-time Streaming**: Live streaming responses using AI SDK
-- **Modern UI**: Clean, responsive interface with Tailwind CSS
-- **TypeScript**: Full type safety throughout the application
-- **Agent Specializations**:
-  - **General Assistant**: General questions and tasks
-  - **Code Assistant**: Programming, debugging, and code review
-  - **Writing Assistant**: Writing, editing, and content creation
-  - **Data Analyst**: Data analysis and insights
+🤖 **Multi-Agent Support**: Choose from specialized AI agents:
+- **General Assistant**: For general questions and tasks
+- **Code Assistant**: Specialized in programming and debugging
+- **Writing Assistant**: Helps with writing and content creation
+- **Data Analyst**: Expert in data analysis and insights
+
+🎨 **Modern UI**: 
+- Clean, minimal design with SCSS modules
+- Gradient backgrounds and smooth animations
+- Color-coded agent personalities
+- Responsive design for all screen sizes
+- Professional chat bubbles with shadows
+
+⚡ **Features**:
+- Real-time streaming responses
+- Auto-scroll to latest messages
+- Keyboard shortcuts (Enter to send, Shift+Enter for new line)
+- Loading states with animated indicators
+- Agent-specific system prompts for contextual responses
+
+## Tech Stack
+
+- **Framework**: Next.js 15 with Turbopack
+- **Language**: TypeScript
+- **Styling**: SCSS Modules (removed Tailwind for better control)
+- **AI SDK**: Vercel AI SDK with OpenAI
+- **Icons**: Lucide React
+- **Fonts**: Geist Sans & Geist Mono
 
 ## Getting Started
 
-### Prerequisites
+1. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-- Node.js 18+ 
-- OpenAI API key
+2. **Set up environment variables**:
+   Create a `.env.local` file and add your OpenAI API key:
+   ```
+   OPENAI_API_KEY=your_openai_api_key_here
+   ```
 
-### Installation
+3. **Run the development server**:
+   ```bash
+   npm run dev
+   ```
 
-1. Clone the repository:
-```bash
-git clone <your-repo-url>
-cd nextjs-agent
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Set up environment variables:
-```bash
-cp .env.local.example .env.local
-```
-
-Edit `.env.local` and add your OpenAI API key:
-```env
-OPENAI_API_KEY=your_openai_api_key_here
-```
-
-4. Run the development server:
-```bash
-npm run dev
-```
-
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+4. **Open your browser** and navigate to `http://localhost:3000`
 
 ## Project Structure
 
 ```
 src/
 ├── app/
-│   ├── api/
-│   │   └── chat/
-│   │       └── route.ts          # Chat API endpoint
-│   ├── globals.css               # Global styles
-│   ├── layout.tsx                # Root layout
-│   └── page.tsx                  # Main page
+│   ├── api/chat/route.ts     # Chat API endpoint
+│   ├── globals.css           # Global CSS reset and base styles
+│   ├── layout.tsx            # Root layout
+│   └── page.tsx              # Home page
 ├── components/
-│   └── ChatInterface.tsx         # Main chat component
+│   ├── ChatInterface.tsx           # Main chat component
+│   └── ChatInterface.module.scss   # SCSS module styles
 ├── lib/
-│   └── agents.ts                 # Agent configurations
+│   └── agents.ts             # Agent configurations
 └── types/
-    ├── agents.ts                 # Agent type definitions
-    └── index.ts                  # Type exports
+    ├── agents.ts             # Agent type definitions
+    └── index.ts              # Type exports
 ```
 
-## Usage
+## Styling Architecture
 
-1. **Select an Agent**: Choose from the available agents based on your task
-2. **Start Chatting**: Type your message and press Send
-3. **Real-time Responses**: Watch as the AI responds in real-time
-4. **Switch Agents**: Change agents mid-conversation for different expertise
+The application uses **SCSS modules** for styling, providing:
+- **Scoped styles**: No global CSS conflicts
+- **Variables**: Consistent colors, spacing, and shadows
+- **Responsive design**: Mobile-first approach
+- **Animations**: Smooth transitions and loading states
+- **Modern CSS**: Gradients, shadows, and backdrop effects
 
-## Agent Capabilities
+## Agent Configuration
 
-### General Assistant
-- General knowledge questions
-- Problem solving
-- Casual conversation
-
-### Code Assistant
-- Programming help
-- Debugging assistance
-- Code review
-- Best practices guidance
-
-### Writing Assistant
-- Writing improvement
-- Content creation
-- Editing suggestions
-- Communication skills
-
-### Data Analyst
-- Data analysis
-- Statistical insights
-- Visualization guidance
-- Complex concept explanation
-
-## Technologies Used
-
-- **Next.js 15**: React framework with App Router
-- **AI SDK**: Vercel's AI SDK for streaming responses
-- **TypeScript**: Type safety and better development experience
-- **Tailwind CSS**: Utility-first CSS framework
-- **OpenAI GPT-4**: Large language model for AI responses
+Each agent has:
+- **Unique personality**: Color-coded with emoji icons
+- **System prompts**: Specialized context for different tasks
+- **Capabilities**: Defined skill sets
+- **Visual identity**: Consistent theming throughout the interface
 
 ## Development
 
-### Adding New Agents
-
-1. Add agent configuration in `src/lib/agents.ts`:
-```typescript
-{
-  id: 'new-agent',
-  name: 'New Agent',
-  description: 'Agent description',
-  systemPrompt: 'Agent system prompt',
-  capabilities: ['capability1', 'capability2'],
-}
-```
-
-2. The agent will automatically appear in the UI.
-
-### Customizing the Chat Interface
-
-Modify `src/components/ChatInterface.tsx` to customize the UI, add features like:
-- Message history
-- File uploads
-- Agent collaboration
-- Custom styling
-
-### API Customization
-
-The chat API in `src/app/api/chat/route.ts` can be extended to:
-- Add tool calling
-- Implement agent collaboration
-- Add conversation memory
-- Integrate with external APIs
-
-## Deployment
-
-### Vercel (Recommended)
-
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Add environment variables in Vercel dashboard
-4. Deploy automatically
-
-### Other Platforms
-
-The app can be deployed to any platform that supports Next.js:
-- Netlify
-- Railway
-- DigitalOcean App Platform
-- AWS Amplify
-
-## Environment Variables
-
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `OPENAI_API_KEY` | Your OpenAI API key | Yes |
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+- **Build**: `npm run build`
+- **Start**: `npm start`
+- **Lint**: `npm run lint`
 
 ## License
 
-MIT License - see LICENSE file for details.
-
-## Support
-
-For issues and questions:
-- Create an issue in the repository
-- Check the AI SDK documentation
-- Review Next.js documentation
+MIT License - feel free to use this project as a starting point for your own AI chat applications!

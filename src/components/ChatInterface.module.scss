@@ -1,0 +1,478 @@
+// Variables
+$primary-blue: #3b82f6;
+$primary-blue-dark: #2563eb;
+$green: #10b981;
+$purple: #8b5cf6;
+$orange: #f59e0b;
+$gray-50: #f9fafb;
+$gray-100: #f3f4f6;
+$gray-200: #e5e7eb;
+$gray-300: #d1d5db;
+$gray-500: #6b7280;
+$gray-600: #4b5563;
+$gray-700: #374151;
+$gray-800: #1f2937;
+$gray-900: #111827;
+$yellow-500: #eab308;
+$white: #ffffff;
+
+$border-radius-sm: 0.5rem;
+$border-radius-md: 0.75rem;
+$border-radius-lg: 1rem;
+$border-radius-xl: 1.5rem;
+
+$shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+$shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+$shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+$shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+// Main Container
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: linear-gradient(135deg, $gray-50 0%, #dbeafe 100%);
+  font-family: inherit;
+}
+
+// Header Styles
+.header {
+  background: $white;
+  border-bottom: 1px solid $gray-200;
+  box-shadow: $shadow-lg;
+  
+  .headerContent {
+    max-width: 64rem;
+    margin: 0 auto;
+    padding: 1.5rem;
+    
+    .headerInner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      
+      .headerLeft {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        
+        .agentAvatar {
+          width: 3rem;
+          height: 3rem;
+          border-radius: $border-radius-md;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: $white;
+          font-size: 1.25rem;
+          box-shadow: $shadow-lg;
+          transition: all 0.2s ease;
+          
+          &.blue { background-color: $primary-blue; }
+          &.green { background-color: $green; }
+          &.purple { background-color: $purple; }
+          &.orange { background-color: $orange; }
+        }
+        
+        .headerText {
+          .title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: $gray-900;
+            margin-bottom: 0.125rem;
+            
+            .sparkles {
+              width: 1.25rem;
+              height: 1.25rem;
+              color: $yellow-500;
+            }
+          }
+          
+          .description {
+            font-size: 0.875rem;
+            color: $gray-600;
+          }
+        }
+      }
+      
+      .agentPills {
+        display: flex;
+        gap: 0.5rem;
+        
+        .agentPill {
+          padding: 0.5rem 1rem;
+          border-radius: 9999px;
+          font-size: 0.875rem;
+          font-weight: 500;
+          border: 1px solid;
+          transition: all 0.2s ease;
+          display: flex;
+          align-items: center;
+          gap: 0.25rem;
+          
+          .emoji {
+            margin-right: 0.25rem;
+          }
+          
+          &.active {
+            color: $white;
+            box-shadow: $shadow-lg;
+            
+            &.blue { 
+              background-color: $primary-blue; 
+              border-color: $primary-blue; 
+            }
+            &.green { 
+              background-color: $green; 
+              border-color: $green; 
+            }
+            &.purple { 
+              background-color: $purple; 
+              border-color: $purple; 
+            }
+            &.orange { 
+              background-color: $orange; 
+              border-color: $orange; 
+            }
+          }
+          
+          &.inactive {
+            background-color: $white;
+            color: $gray-600;
+            border-color: $gray-300;
+            
+            &:hover {
+              background-color: $gray-50;
+              box-shadow: $shadow-md;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Messages Section
+.messagesSection {
+  flex: 1;
+  overflow-y: auto;
+  
+  .messagesContent {
+    max-width: 64rem;
+    margin: 0 auto;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    
+    .emptyState {
+      text-align: center;
+      padding: 4rem 0;
+      
+      .emptyIcon {
+        width: 5rem;
+        height: 5rem;
+        background: linear-gradient(135deg, $primary-blue 0%, $purple 100%);
+        border-radius: $border-radius-md;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        box-shadow: $shadow-xl;
+        
+        svg {
+          width: 2.5rem;
+          height: 2.5rem;
+          color: $white;
+        }
+      }
+      
+      .emptyTitle {
+        font-size: 2rem;
+        font-weight: 700;
+        color: $gray-900;
+        margin-bottom: 0.75rem;
+      }
+      
+      .emptyDescription {
+        color: $gray-600;
+        font-size: 1.125rem;
+        max-width: 28rem;
+        margin: 0 auto;
+      }
+    }
+    
+    .message {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      
+      &.user {
+        flex-direction: row-reverse;
+      }
+      
+      .messageAvatar {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: $border-radius-md;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        box-shadow: $shadow-lg;
+        
+        &.user {
+          background: linear-gradient(135deg, $primary-blue 0%, $primary-blue-dark 100%);
+          color: $white;
+        }
+        
+        &.assistant {
+          color: $white;
+          font-size: 0.875rem;
+          
+          &.blue { background-color: $primary-blue; }
+          &.green { background-color: $green; }
+          &.purple { background-color: $purple; }
+          &.orange { background-color: $orange; }
+        }
+        
+        svg {
+          width: 1.25rem;
+          height: 1.25rem;
+        }
+      }
+      
+      .messageContent {
+        max-width: 75%;
+        
+        &.user {
+          text-align: right;
+        }
+        
+        .messageBubble {
+          display: inline-block;
+          padding: 1rem;
+          border-radius: $border-radius-md;
+          box-shadow: $shadow-lg;
+          
+          &.user {
+            background: linear-gradient(135deg, $primary-blue 0%, $primary-blue-dark 100%);
+            color: $white;
+          }
+          
+          &.assistant {
+            background-color: $white;
+            color: $gray-800;
+            border: 1px solid $gray-200;
+          }
+          
+          .messageText {
+            font-size: 0.875rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+          }
+        }
+        
+        .messageTime {
+          font-size: 0.75rem;
+          color: $gray-500;
+          margin-top: 0.5rem;
+          
+          &.user {
+            text-align: right;
+          }
+        }
+      }
+    }
+    
+    .loadingMessage {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      
+      .loadingAvatar {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: $border-radius-md;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        box-shadow: $shadow-lg;
+        color: $white;
+        font-size: 0.875rem;
+        
+        &.blue { background-color: $primary-blue; }
+        &.green { background-color: $green; }
+        &.purple { background-color: $purple; }
+        &.orange { background-color: $orange; }
+      }
+      
+      .loadingBubble {
+        background-color: $white;
+        border-radius: $border-radius-md;
+        padding: 1rem;
+        box-shadow: $shadow-lg;
+        border: 1px solid $gray-200;
+        
+        .loadingContent {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          
+          .spinner {
+            width: 1rem;
+            height: 1rem;
+            color: $gray-500;
+            animation: spin 1s linear infinite;
+          }
+          
+          .loadingText {
+            font-size: 0.875rem;
+            color: $gray-600;
+          }
+          
+          .loadingDots {
+            display: flex;
+            gap: 0.25rem;
+            
+            .dot {
+              width: 0.5rem;
+              height: 0.5rem;
+              background-color: $gray-300;
+              border-radius: 50%;
+              animation: bounce 1.4s ease-in-out infinite both;
+              
+              &:nth-child(1) { animation-delay: -0.32s; }
+              &:nth-child(2) { animation-delay: -0.16s; }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Input Section
+.inputSection {
+  background-color: $white;
+  border-top: 1px solid $gray-200;
+  box-shadow: $shadow-lg;
+  
+  .inputContent {
+    max-width: 64rem;
+    margin: 0 auto;
+    padding: 1.5rem;
+    
+    .inputForm {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-end;
+      
+      .inputWrapper {
+        flex: 1;
+        position: relative;
+        
+        .input {
+          width: 100%;
+          background-color: $white;
+          border: 1px solid $gray-300;
+          border-radius: $border-radius-md;
+          padding: 1rem 1.5rem;
+          font-size: 0.875rem;
+          color: $gray-800;
+          box-shadow: $shadow-sm;
+          transition: all 0.2s ease;
+          
+          &:focus {
+            outline: none;
+            border-color: $primary-blue;
+            box-shadow: 0 0 0 3px rgb(59 130 246 / 0.1);
+          }
+          
+          &:disabled {
+            background-color: $gray-50;
+            cursor: not-allowed;
+          }
+          
+          &::placeholder {
+            color: $gray-500;
+          }
+        }
+      }
+      
+      .sendButton {
+        background: linear-gradient(135deg, $primary-blue 0%, $primary-blue-dark 100%);
+        color: $white;
+        border-radius: $border-radius-md;
+        padding: 1rem;
+        box-shadow: $shadow-lg;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        &:hover:not(:disabled) {
+          background: linear-gradient(135deg, $primary-blue-dark 0%, #1d4ed8 100%);
+          box-shadow: $shadow-xl;
+        }
+        
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+        
+        svg {
+          width: 1.25rem;
+          height: 1.25rem;
+        }
+      }
+    }
+    
+    .inputHint {
+      font-size: 0.75rem;
+      color: $gray-500;
+      text-align: center;
+      margin-top: 0.75rem;
+    }
+  }
+}
+
+// Animations
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .header .headerContent .headerInner {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+    
+    .agentPills {
+      flex-wrap: wrap;
+    }
+  }
+  
+  .messagesSection .messagesContent .message .messageContent {
+    max-width: 85%;
+  }
+  
+  .inputSection .inputContent .inputForm {
+    gap: 0.75rem;
+  }
+} 

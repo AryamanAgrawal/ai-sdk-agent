@@ -4,10 +4,14 @@ import { agents } from '@/lib/agents';
 
 export async function POST(req: Request) {
   try {
-    const { messages }: { messages: UIMessage[] } = await req.json();
-        
+    const { messages, agentId }: { messages: UIMessage[]; agentId?: string } = await req.json();
+    
+    // Find the selected agent or default to the first one
+    const selectedAgent = agents.find(agent => agent.id === agentId) || agents[0];
+    
     const result = streamText({
       model: openai('gpt-4o'),
+      system: selectedAgent.systemPrompt,
       messages: convertToModelMessages(messages),
     });    
 
