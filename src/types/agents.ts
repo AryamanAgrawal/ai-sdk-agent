@@ -1,4 +1,4 @@
-export interface Agent {
+export interface AgentDefinition {
   id: string;
   name: string;
   description: string;
@@ -29,4 +29,4 @@ export interface AgentResponse {
   content: string;
   confidence?: number;
   tools?: string[];
-} 
+}

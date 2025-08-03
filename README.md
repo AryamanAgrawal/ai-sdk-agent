@@ -5,12 +5,14 @@ A modern, beautiful chat interface for interacting with specialized AI agents bu
 ## Features
 
 🤖 **Multi-Agent Support**: Choose from specialized AI agents:
+
 - **General Assistant**: For general questions and tasks
 - **Code Assistant**: Specialized in programming and debugging
 - **Writing Assistant**: Helps with writing and content creation
 - **Data Analyst**: Expert in data analysis and insights
 
-🎨 **Modern UI**: 
+🎨 **Modern UI**:
+
 - Clean, minimal design with SCSS modules
 - Gradient backgrounds and smooth animations
 - Color-coded agent personalities
@@ -18,6 +20,7 @@ A modern, beautiful chat interface for interacting with specialized AI agents bu
 - Professional chat bubbles with shadows
 
 ⚡ **Features**:
+
 - Real-time streaming responses
 - Auto-scroll to latest messages
 - Keyboard shortcuts (Enter to send, Shift+Enter for new line)
@@ -36,17 +39,20 @@ A modern, beautiful chat interface for interacting with specialized AI agents bu
 ## Getting Started
 
 1. **Install dependencies**:
+
    ```bash
    npm install
    ```
 
 2. **Set up environment variables**:
    Create a `.env.local` file and add your OpenAI API key:
+
    ```
    OPENAI_API_KEY=your_openai_api_key_here
    ```
 
 3. **Run the development server**:
+
    ```bash
    npm run dev
    ```
@@ -75,6 +81,7 @@ src/
 ## Styling Architecture
 
 The application uses **SCSS modules** for styling, providing:
+
 - **Scoped styles**: No global CSS conflicts
 - **Variables**: Consistent colors, spacing, and shadows
 - **Responsive design**: Mobile-first approach
@@ -84,6 +91,7 @@ The application uses **SCSS modules** for styling, providing:
 ## Agent Configuration
 
 Each agent has:
+
 - **Unique personality**: Color-coded with emoji icons
 - **System prompts**: Specialized context for different tasks
 - **Capabilities**: Defined skill sets
