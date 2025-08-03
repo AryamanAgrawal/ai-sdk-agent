@@ -1,7 +1,6 @@
-import { tool } from 'ai';
+import { generateText, tool } from 'ai';
 import { z } from 'zod';
 import { openai } from '@ai-sdk/openai';
-import { Experimental_Agent as Agent, stepCountIs } from 'ai';
 
 export interface AgentDefinition {
   id: string;
@@ -34,49 +33,34 @@ export const agents: AgentDefinition[] = [
 export const writingAgentTool = tool({
   description: 'An AI Agent that can deliberate on writing content',
   inputSchema: z.object({
-    content: z.string(),
+    query: z.string(),
   }),
-  execute: async ({ content }) => {
-    console.log('🖊️ [WritingTool] Executing writing agent tool');
-    console.log(
-      `📝 [WritingTool] Content length: ${content.length} characters`
-    );
+  execute: async ({ query }) => {
+    console.log('🖊️ [WritingTool] Executing writing agent tool', query);
 
     const writingAgent = getWritingAgent();
     console.log('🤖 [WritingTool] Writing agent created, running content...');
 
-    const result = await writingAgent.run(content);
+    const result = await writingAgent.run(query);
     console.log('✅ [WritingTool] Writing agent execution completed');
 
-    return result;
+    return result.text; // Return the actual text content
   },
 });
 
 export const getWritingAgent = () => {
-  console.log('🏗️ [Agent] Creating writing agent with gpt-4.1 model');
-  console.log(
-    '📜 [Agent] System prompt: Writing specialist for literature, poetry, and creative writing'
-  );
-
-  const writingAgent = new Agent({
-    model: openai('gpt-4.1'),
-    system:
-      'You are a writing agent. You specialise in writing literature, poetry, and creative writing.',
-    stopWhen: stepCountIs(2),
-    tools: {
-      /* Your tools */
-    },
-  });
-
-  console.log('✅ [Agent] Writing agent created successfully');
-
   return {
-    run: async (content: string) => {
+    run: async (query: string) => {
       console.log(
-        `🌊 [Agent] Starting writing agent stream for content: ${content.substring(0, 100)}...`
+        `🌊 [Agent] Starting writing agent generation for content: ${query.substring(0, 100)}...`
       );
-      const result = writingAgent.stream({ prompt: content });
-      console.log('📡 [Agent] Writing agent stream initiated');
+      const result = await generateText({
+        model: openai('gpt-4.1'),
+        system:
+          'You are a professional writer and editor. Help users improve their writing, create engaging content, and refine their communication skills. Provide constructive feedback and suggestions.',
+        prompt: query,
+      });
+
       return result;
     },
   };
