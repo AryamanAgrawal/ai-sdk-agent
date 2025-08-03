@@ -13,7 +13,7 @@ export interface Message {
   content: string;
   agentId?: string;
   timestamp: Date;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface ChatSession {

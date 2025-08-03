@@ -1,19 +1,31 @@
 'use client';
 
-import { useChat } from 'ai/react';
+import { useChat } from '@ai-sdk/react';
 import { useState } from 'react';
 import { agents } from '@/lib/agents';
-import { Agent } from '@/types/agents';
 
 export default function ChatInterface() {
   const [selectedAgent, setSelectedAgent] = useState<string>(agents[0].id);
+  const [input, setInput] = useState('');
   
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
-    api: '/api/chat',
-    body: {
-      agentId: selectedAgent,
-    },
-  });
+  const { messages, sendMessage, status } = useChat();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (input.trim()) {
+      sendMessage({
+        role: 'user',
+        parts: [{ type: 'text', text: input }],
+      }, {
+        body: {
+          agentId: selectedAgent,
+        },
+      });
+      setInput('');
+    }
+  };
+
+  const isLoading = status === 'submitted' || status === 'streaming';
 
   return (
     <div className="max-w-4xl mx-auto p-4">
@@ -54,7 +66,9 @@ export default function ChatInterface() {
                   : 'bg-white text-gray-800 border'
               }`}
             >
-              {message.content}
+              {message.parts.map((part, index) => (
+                <span key={index}>{part.type === 'text' ? part.text : ''}</span>
+              ))}
             </div>
           </div>
         ))}
@@ -75,7 +89,7 @@ export default function ChatInterface() {
       <form onSubmit={handleSubmit} className="flex gap-2">
         <input
           value={input}
-          onChange={handleInputChange}
+          onChange={(e) => setInput(e.target.value)}
           placeholder="Type your message..."
           className="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />

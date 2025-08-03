@@ -11,14 +11,14 @@ export async function POST(req: Request) {
     
     // Create the conversation with the agent's system prompt
     const result = await streamText({
-      model: openai('gpt-4'),
+      model: openai('gpt-4o'),
       messages: [
         { role: 'system', content: agent.systemPrompt },
         ...messages
       ],
     });
 
-    return result.toDataStreamResponse();
+    return result.toTextStreamResponse();
   } catch (error) {
     console.error('Chat API error:', error);
     return new Response(
